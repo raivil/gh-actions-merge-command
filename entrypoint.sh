@@ -105,4 +105,4 @@ set -o xtrace
 git merge $FF_MODE --no-edit $HEAD_BRANCH
 
 # Push the branch
-git push origin $HEAD_BRANCH
+git push origin $BRANCH_TO_MERGE
