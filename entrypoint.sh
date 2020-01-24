@@ -82,11 +82,11 @@ git config --global user.email "$INPUT_USER_EMAIL"
 
 set -o xtrace
 
-git fetch origin $BRANCH_TO_MERGE
-git checkout -b $BRANCH_TO_MERGE origin/$BRANCH_TO_MERGE
-
 git fetch origin $HEAD_BRANCH
 git checkout -b $HEAD_BRANCH origin/$HEAD_BRANCH
+
+git fetch origin $BRANCH_TO_MERGE
+git checkout -b $BRANCH_TO_MERGE origin/$BRANCH_TO_MERGE
 
 if git merge-base --is-ancestor $BRANCH_TO_MERGE $HEAD_BRANCH; then
   echo "No merge is necessary"
@@ -95,13 +95,14 @@ fi;
 
 set +o xtrace
 echo
-echo "  'Nightly Merge Action' is trying to merge the '$BRANCH_TO_MERGE' branch ($(git log -1 --pretty=%H $BRANCH_TO_MERGE))"
-echo "  into the '$HEAD_BRANCH' branch ($(git log -1 --pretty=%H $HEAD_BRANCH))"
+echo "  'Nightly Merge Action' is trying to merge the '$HEAD_BRANCH' branch ($(git log -1 --pretty=%H $HEAD_BRANCH))"
+echo "  into the '$
+' branch ($(git log -1 --pretty=%H $BRANCH_TO_MERGE))"
 echo
 set -o xtrace
 
 # Do the merge
-git merge $FF_MODE --no-edit $BRANCH_TO_MERGE
+git merge $FF_MODE --no-edit $HEAD_BRANCH
 
 # Push the branch
 git push origin $HEAD_BRANCH
