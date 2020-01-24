@@ -108,4 +108,4 @@ git merge $FF_MODE --no-edit $HEAD_BRANCH
 # Push the branch
 git push origin $BRANCH_TO_MERGE
 
-curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" -d '{"body": "Merged to Staging"}' -H "Content-Type: application/json" -X POST "${URI}/repos/${REPO_FULLNAME}/pulls/${PR_NUMBER}/comments"
+curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" -d '{"body": "Merged to Staging"}' -H "Content-Type: application/json" -X POST "${URI}/repos/${REPO_FULLNAME}/issues/${PR_NUMBER}/comments"
