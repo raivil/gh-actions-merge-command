@@ -2,6 +2,7 @@
 
 set -e
 
+
 # skip if no /merge
 echo "Checking if contains '/merge' command..."
 (jq -r ".comment.body" "$GITHUB_EVENT_PATH" | grep -E "/merge") || exit 78
@@ -106,3 +107,5 @@ git merge $FF_MODE --no-edit $HEAD_BRANCH
 
 # Push the branch
 git push origin $BRANCH_TO_MERGE
+
+curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" -d '{"body": "Merged to Staging"}' -H "Content-Type: application/json" -X POST "${URI}/repos/${REPO_FULLNAME}/pulls/${PR_NUMBER}/comments"
