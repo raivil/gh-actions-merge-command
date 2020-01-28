@@ -39,8 +39,8 @@ HEAD_BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
 
 echo
 echo "  'Nightly Merge Action' is using the following input:"
-echo "    - branch to merge = '$BRANCH_TO_MERGE'"
-echo "    - branch to checkout and merge into = '$HEAD_BRANCH'"
+echo "    - branch to checkout and merge into = '$BRANCH_TO_MERGE'"
+echo "    - branch to merge = '$HEAD_BRANCH'"
 echo "    - allow_ff = $INPUT_ALLOW_FF"
 echo "    - ff_only = $INPUT_FF_ONLY"
 echo "    - allow_forks = $INPUT_ALLOW_FORKS"
@@ -108,4 +108,4 @@ git merge $FF_MODE --no-edit $HEAD_BRANCH
 # Push the branch
 git push origin $BRANCH_TO_MERGE
 
-curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" -d '{"body": "Merged to Staging"}' -H "Content-Type: application/json" -X POST "${URI}/repos/${REPO_FULLNAME}/issues/${PR_NUMBER}/comments"
+curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" -d '{"body": "Merged to ${BRANCH_TO_MERGE}"}' -H "Content-Type: application/json" -X POST "${URI}/repos/${REPO_FULLNAME}/issues/${PR_NUMBER}/comments"
